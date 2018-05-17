@@ -1,6 +1,6 @@
 FROM ubuntu:14.04
 
-MAINTAINER Maksym Bilenko <sath891@gmail.com>
+# Forked from https://github.com/MaksymBilenko/docker-oracle-xe-11g
 
 # get rid of the message: "debconf: unable to initialize frontend: Dialog"
 ENV DEBIAN_FRONTEND noninteractive
@@ -18,6 +18,12 @@ ln -s /usr/bin/awk /bin/awk &&\
 mkdir /var/lock/subsys &&\
 chmod 755 /sbin/chkconfig &&\
 /oracle-install.sh
+
+# Install NodeJS 8 + npm
+RUN curl -sL https://deb.nodesource.com/setup_8.x | bash && apt-get install -y nodejs
+
+# Install nodemon
+RUN npm install -g nodemon
 
 # see issue #1
 ENV ORACLE_HOME /u01/app/oracle/product/11.2.0/xe
